@@ -1,6 +1,4 @@
 import React, {useState} from 'react';
-import { useDispatch } from 'react-redux';
-
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -14,28 +12,22 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+
 import Head from 'next/head';
 const theme = createTheme();
-export default function Join(){
-    const [user, setUser] =useState({
-        userid:'', password:'', email:'', name:'', phone:'', birth:'', address:''
-    })
-    const dispatch = useDispatch()
-    const handleChange = e =>{
-        e.preventDefault()
-        const{name, value} = e.target;
-        setUser({...user,[name]: value})
-    }
+
+export function Register({onChange, onSubmit}){
+
   return (
     <ThemeProvider theme={theme}>
     <Head>
-    <title>사용자| 회원가입</title>
+    <title>사용자| 회원가입 </title>
     </Head>
       <Container component="main" maxWidth="xs">
         <CssBaseline />
         <Box
           sx={{
-            marginTop: 8,
+            marginTop: 2,
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
@@ -47,17 +39,10 @@ export default function Join(){
           <Typography component="h1" variant="h5">
             회원가입
           </Typography>
-          <Box component="form" noValidate onSubmit={
-            e => {
-                e.preventDefault()
-                dispatch(userActions.joinRequest(user))
-                setUser({
-                    userid:'', password:'', email:'', name:'', phone:'', birth:'', address:''
-                })
-            }
-        } sx={{ mt: 3 }}>
+
+          <Box component="form" noValidate sx={{ mt: 3 }} onSubmit={onSubmit}>
             <Grid container spacing={2}>
-            <Grid item xs={12} sm={6} >
+              <Grid item xs={12} sm={6} >
                 <TextField
                   autoComplete="given-name"
                   name="userid"
@@ -66,7 +51,7 @@ export default function Join(){
                   id="userid"
                   label="사용자ID"
                   autoFocus
-                  onChange={handleChange}
+                  onChange={onChange}
                 />
               </Grid>
               <Grid item xs={12} sm={6}>
@@ -77,7 +62,7 @@ export default function Join(){
                   label="이 름"
                   name="name"
                   autoComplete="family-name"
-                  onChange={handleChange}
+                  onChange={onChange}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -88,7 +73,7 @@ export default function Join(){
                   label="Email Address"
                   name="email"
                   autoComplete="email"
-                  onChange={handleChange}
+                  onChange={onChange}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -99,7 +84,7 @@ export default function Join(){
                   label="Password"
                   type="password"
                   id="password"
-                  onChange={handleChange}
+                  onChange={onChange}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -110,7 +95,7 @@ export default function Join(){
                   label="전화번호"
                   type="text"
                   id="phone"
-                  onChange={handleChange}
+                  onChange={onChange}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -121,7 +106,7 @@ export default function Join(){
                   label="생년월일"
                   type="text"
                   id="birth"
-                  onChange={handleChange}
+                  onChange={onChange}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -132,7 +117,7 @@ export default function Join(){
                   label="주소"
                   type="text"
                   id="address"
-                  onChange={handleChange}
+                  onChange={onChange}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -152,14 +137,15 @@ export default function Join(){
             </Button>
             <Grid container justifyContent="flex-end">
               <Grid item>
-                <Link href="/user/login" variant="body2">
+                <Link href="/auth/login" variant="body2">
                   로그인 화면으로 전환
                 </Link>
               </Grid>
             </Grid>
           </Box>
-        </Box>
+         </Box>
       </Container>
     </ThemeProvider>
   );
 }
+

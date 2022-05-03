@@ -28,14 +28,14 @@ function Copyright(props) {
 
 const theme = createTheme();
 
-export function Login(){
+export function Login({onChange, onSubmit}){
   return (
     <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="xs">
         <CssBaseline />
-        <Box 
+        <Box
           sx={{
-            marginTop: 8,
+            marginTop: 2,
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
@@ -47,16 +47,7 @@ export function Login(){
           <Typography component="h1" variant="h5">
             로그인
           </Typography>
-          
-          <Box component="form"  noValidate sx={{ mt: 1 }} onSubmit={
-            e => {
-                e.preventDefault()
-                dispatch(userActions.joinRequest(user))
-                setUser({
-                    userid:'', password:'', email:'', name:'', phone:'', birth:'', address:''
-                })
-            }
-        }>
+          <Box component="form"  noValidate sx={{ mt: 1 }} onSubmit={onSubmit}>
             <TextField
               margin="normal"
               required
@@ -65,8 +56,8 @@ export function Login(){
               label="사용자ID"
               name="userid"
               autoComplete="email"
-              
               autoFocus
+              onChange={onChange}
             />
             <TextField
               margin="normal"
@@ -77,6 +68,7 @@ export function Login(){
               type="password"
               id="password"
               autoComplete="current-password"
+              onChange={onChange}
             />
             <FormControlLabel
               control={<Checkbox value="remember" color="primary" />}
@@ -109,3 +101,4 @@ export function Login(){
     </ThemeProvider>
   );
 }
+
